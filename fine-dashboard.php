@@ -54,6 +54,14 @@ class FineDashboard{
 	}
 
 	/*
+		fine dashboard admin page
+	*/
+	public function RenderPage()
+	{
+		include("modules/admin.php");
+	}
+
+	/*
 		load custom dashboard styles
 	*/
 	public function load_custom_dashboard_style( )
@@ -86,26 +94,40 @@ class FineDashboard{
 		$wp_meta_boxes['dashboard']['side']['core'] = array();
 
 		// add new metabox
-		wp_add_dashboard_widget('custom_help_widget', 'Get help to manage your web site', array($this, 'custom_dashboard_help') );
+		$custom_help_widget = new Widget('Get help to manage your web site', 'custom_dashboard_help', array('url' => 'url to api goes here', 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5));
+		$office_details_widget = new Widget('Office Details', 'custom_office_details', array('a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5));
 	}
-
-	/*
-		fine dashboard admin page
-	*/
-	public function RenderPage()
-	{
-		include("modules/admin.php");
-	}
-
-	/*
-		fine dashboard custom dashboard
-	*/
-	public function custom_dashboard_help()
-	{
-		include("modules/dashboard.php");
-	}
-
 }
 
 $FineDashboard = FineDashboard::GetInstance();
 $FineDashboard->InitPlugin();
+
+
+
+class Widget {
+
+	public $title;
+	public $file;
+	public $content;
+
+	/*
+	 	contructor for widget
+	*/
+	public function __construct($title, $file, $content = [] )
+	{
+		$this->title = $title;
+		$this->file = $file;
+		$this->content = $content;
+		wp_add_dashboard_widget($file, $title, array($this, 'custom_dashboard_widget') );
+	}
+
+	/*
+		get and include widget file
+	*/
+	function custom_dashboard_widget()
+	{
+		$content = $this->content;
+		include("modules/".$this->file.".php");
+	}
+
+}

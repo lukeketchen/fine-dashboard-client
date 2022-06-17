@@ -23,15 +23,14 @@ $err = curl_error($curl);
 curl_close($curl);
 
 if ($err) {
-	echo "cURL Error #:" . $err;
+	// echo "cURL Error #:" . $err;
 } else {
-	// $myArray = print_r_reverse($response);
-	// $resArr = json_decode($response);
-	echo $response;
+	// echo $response;
 }
 
 ?>
 
+<?= $content['url'] ?>
 
 <p style="color: green;font-size: 18px;"><strong>Welcome to the backend of your WordPress web site!</strong></p>
 <p>Some helpful advice is located here:</p>
