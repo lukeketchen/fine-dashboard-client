@@ -46,7 +46,7 @@ class FineDashboard{
 										'manage_options',
 										FD_FILE,
 										array($this, 'RenderPage'),
-										FD_PATH.'/assets/img/icon.png',
+										// FD_PATH.'/assets/img/icon.png',
 									);
 	}
 
@@ -61,12 +61,16 @@ class FineDashboard{
 	public function InitPlugin()
 	{
 		add_action('admin_menu', array($this, 'PluginMenu'));
-		add_action('wp_enqueue_scripts', 'add_custom_css_file');
-		add_action('wp_dashboard_setup', 'wpse_73561_remove_all_dashboard_meta_boxes', 9999 );
+		add_action('wp_enqueue_scripts', array($this, 'add_custom_css_file') );
+		add_action('wp_dashboard_setup', array(__CLASS__, 'wpse_73561_remove_all_dashboard_meta_boxes'), 9999 );
 	}
 
-	protected function add_custom_css_file( $hook ) {
-		wp_enqueue_style( plugins_url( 'assets/css/style.css', FD_FILE ) );
+	protected function add_custom_css_file( )
+	{
+		echo "Add-css-eggs";
+		//wp_enqueue_style( plugins_url( 'assets/css/style.css', FD_FILE ) );
+    	wp_register_style( 'fine_stylesheet', plugins_url( 'admin/css/style.css', __FILE__ ) );
+    	wp_enqueue_style( 'fine_stylesheet' );
 		wp_enqueue_script ( 'fine-main', plugin_dir_url( FD_FILE ).'assets/js/main.js', 'fine-main', true  );
 	}
 
