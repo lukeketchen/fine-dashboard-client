@@ -15,18 +15,11 @@ if ( ! defined( 'WPINC' ) ) {
 
 define( 'PLUGIN_NAME',               'Fine Dashboard');
 define( 'FD_FILE',                  __FILE__ );
-define( 'FD_PATH',                  realpath( plugin_dir_path( FD_FILE ) ) . '/' );
-define( 'FD_INC_PATH',              realpath( FD_PATH . 'inc/' ) . '/' );
-define( 'FD_FUNCTIONS_PATH',        realpath( FD_INC_PATH . 'functions' ) . '/' );
 
-/*
-	Reference - https://clivern.com/adding-menus-and-submenus-for-wordpress-plugins/
- */
 class FineDashboard{
 
-	private $my_plugin_screen_name;
+	private $fine_dashboard_screen_name;
 	private static $instance;
-	/*......*/
 
 	static function GetInstance()
 	{
@@ -38,64 +31,78 @@ class FineDashboard{
 		return self::$instance;
 	}
 
-	public function PluginMenu()
-	{
-	$this->my_plugin_screen_name = add_menu_page(
-										'Fine Dashboard',
-										'Fine Dashboard',
-										'manage_options',
-										FD_FILE,
-										array($this, 'RenderPage'),
-										// FD_PATH.'/assets/img/icon.png',
-									);
-	}
-
-	protected function RenderPage(){
-	?>
-		<div class='wrap'>
-			<h2>Fine Dashboard</h2>
-		</div>
-	<?php
-	}
-
 	public function InitPlugin()
 	{
 		add_action('admin_menu', array($this, 'PluginMenu'));
-		add_action('wp_enqueue_scripts', array($this, 'add_custom_css_file') );
-		add_action('wp_dashboard_setup', array(__CLASS__, 'wpse_73561_remove_all_dashboard_meta_boxes'), 9999 );
+		add_action('wp_dashboard_setup', array($this, 'load_custom_dashboard_style'), 9999 );
+		add_action('wp_dashboard_setup', array($this, 'fine_dashboard_remove_all_dashboard_meta_boxes'), 9999 );
+		add_action( 'admin_enqueue_scripts', array($this, 'load_custom_wp_admin_style') );
 	}
 
-	protected function add_custom_css_file( )
+	public function PluginMenu()
 	{
-		echo "Add-css-eggs";
-		//wp_enqueue_style( plugins_url( 'assets/css/style.css', FD_FILE ) );
-    	wp_register_style( 'fine_stylesheet', plugins_url( 'admin/css/style.css', __FILE__ ) );
-    	wp_enqueue_style( 'fine_stylesheet' );
-		wp_enqueue_script ( 'fine-main', plugin_dir_url( FD_FILE ).'assets/js/main.js', 'fine-main', true  );
+	$this->fine_dashboard_screen_name =
+		add_submenu_page(
+			'tools.php',
+			PLUGIN_NAME,
+			PLUGIN_NAME,
+			'manage_options',
+			FD_FILE,
+			array($this, 'RenderPage'),
+		);
+
 	}
 
-	protected function wpse_73561_remove_all_dashboard_meta_boxes(){
+	/*
+		load custom dashboard styles
+	*/
+	public function load_custom_dashboard_style( )
+	{
+    	wp_enqueue_style( 'fine_dashboard_css' , plugin_dir_url( FD_FILE ).'assets/css/fine-style.css', array(), null);
+		wp_enqueue_script ( 'fine_dashboard_js', plugin_dir_url( FD_FILE ).'assets/js/main.js', 'fine-main', true  );
+	}
+
+	/*
+		load custom admin page styles
+	*/
+	function load_custom_wp_admin_style($hook)
+	{
+		// Load only on ?page=fine-dashboard
+		if( $hook != 'tools_page_fine-dashboard/fine-dashboard' ) {
+			return;
+		}
+		wp_enqueue_style( 'fine_admin_css', plugin_dir_url( FD_FILE ).'assets/css/admin-style.css', array(), null );
+		wp_enqueue_script( 'fine_admin_js', plugin_dir_url( FD_FILE ).'assets/js/admin.js', 'fine_admin_js', true  );
+	}
+
+	/*
+		clean dashboard
+	*/
+	public function fine_dashboard_remove_all_dashboard_meta_boxes()
+	{
 		// remove all metaboxes from dashboard
 		global $wp_meta_boxes;
 		$wp_meta_boxes['dashboard']['normal']['core'] = array();
 		$wp_meta_boxes['dashboard']['side']['core'] = array();
 
 		// add new metabox
-		wp_add_dashboard_widget('custom_help_widget', 'Get help to manage your web site', 'custom_dashboard_help');
+		wp_add_dashboard_widget('custom_help_widget', 'Get help to manage your web site', array($this, 'custom_dashboard_help') );
 	}
 
 	/*
-	New Meta box
+		fine dashboard admin page
 	*/
-	protected function custom_dashboard_help() {
-	?>
-		<p style="color: green;font-size: 18px;"><strong>Welcome to the backend of your WordPress web site!</strong></p>
-		<p>Some helpful advice is located here:</p>
-		<h2>
-			<a href="https://www.efront.com.au/" target="_blank" style="text-decoration: underline; font-weight:strong;">Link to the help page</a>
-		</h2>
-		<p>Contact <a href="mailto:paaljoachim@hotmail.com">Paal Joachim</a> when questions arise.</p>
-	<?php
+	public function RenderPage()
+	{
+		include("modules/admin.php");
+	}
+
+	/*
+		fine dashboard custom dashboard
+	*/
+	public function custom_dashboard_help()
+	{
+		include("modules/dashboard.php");
 	}
 
 }
