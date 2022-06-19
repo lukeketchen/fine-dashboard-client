@@ -93,9 +93,18 @@ class FineDashboard{
 		$wp_meta_boxes['dashboard']['normal']['core'] = array();
 		$wp_meta_boxes['dashboard']['side']['core'] = array();
 
-		// add new metabox
-		$custom_help_widget = new Widget('Get help to manage your web site', 'custom_dashboard_help', array('url' => 'url to api goes here', 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5));
-		$office_details_widget = new Widget('Office Details', 'custom_office_details', array('a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5));
+		$this->add_new_widgets();
+	}
+
+	/*
+		Add New widgets
+	*/
+	private function add_new_widgets()
+	{
+		$custom_help_widget = new Widget('Alert', 'alert_widget', array('url' => 'Alert Text', 'The bill is due' => 2, 'c' => 3, 'd' => 4, 'e' => 5));
+		$custom_help_widget = new Widget('Get help to manage your web site', 'general_help_widget', array('url' => 'url to api goes here', 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5));
+		$office_details_widget = new Widget('Office Details', 'office_details_widget', array('a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5));
+		$helpful_links_widget = new Widget('Helpful Links', 'helpful_links_widget', array('a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5));
 	}
 }
 
@@ -127,7 +136,7 @@ class Widget {
 	function custom_dashboard_widget()
 	{
 		$content = $this->content;
-		include("modules/".$this->file.".php");
+		include("modules/widgets/".$this->file.".php");
 	}
 
 }
