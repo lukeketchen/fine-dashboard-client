@@ -15,6 +15,8 @@ if ( ! defined( 'WPINC' ) ) {
 
 define( 'PLUGIN_NAME',               'Fine Dashboard');
 define( 'FD_FILE',                  __FILE__ );
+define( 'PLUGIN_FOLDER',             plugin_dir_path( __FILE__ ));
+define( 'PATH_TO_JSON_FILE' , PLUGIN_FOLDER.'/data');
 
 class FineDashboard{
 
@@ -101,7 +103,9 @@ class FineDashboard{
 	*/
 	private function add_new_widgets()
 	{
-		$custom_help_widget = new Widget('Alert', 'alert_widget', array('url' => 'Alert Text', 'The bill is due' => 2, 'c' => 3, 'd' => 4, 'e' => 5));
+		$alert_obj = json_decode(file_get_contents(PATH_TO_JSON_FILE."/alert.json"), true);
+
+		$custom_help_widget = new Widget('Alert', 'alert_widget', $alert_obj );
 		$custom_help_widget = new Widget('Get help to manage your web site', 'general_help_widget', array('url' => 'url to api goes here', 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5));
 		$office_details_widget = new Widget('Office Details', 'office_details_widget', array('a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5));
 		$helpful_links_widget = new Widget('Helpful Links', 'helpful_links_widget', array('a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5));
