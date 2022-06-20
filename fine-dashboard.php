@@ -103,12 +103,15 @@ class FineDashboard{
 	*/
 	private function add_new_widgets()
 	{
-		$alert_obj = json_decode(file_get_contents(PATH_TO_JSON_FILE."/alert.json"), true);
+		$alert_data = json_decode(file_get_contents(PATH_TO_JSON_FILE."/alert.json"), true);
+		$general_data = json_decode(file_get_contents(PATH_TO_JSON_FILE."/general_help_widget.json"), true);
+		$office_data = json_decode(file_get_contents(PATH_TO_JSON_FILE."/office_details_widget.json"), true);
+		$helpful_data = json_decode(file_get_contents(PATH_TO_JSON_FILE."/helpful_links_widget.json"), true);
 
-		$custom_help_widget = new Widget('Alert', 'alert_widget', $alert_obj );
-		$custom_help_widget = new Widget('Get help to manage your web site', 'general_help_widget', array('url' => 'url to api goes here', 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5));
-		$office_details_widget = new Widget('Office Details', 'office_details_widget', array('a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5));
-		$helpful_links_widget = new Widget('Helpful Links', 'helpful_links_widget', array('a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5));
+		$alert_help_widget = new Widget('Alert', 'alert_widget', $alert_data );
+		$custom_help_widget = new Widget('Get help to manage your web site', 'general_help_widget', $general_data);
+		$office_details_widget = new Widget('Office Details', 'office_details_widget', $office_data);
+		$helpful_links_widget = new Widget('Helpful Links', 'helpful_links_widget', $helpful_data);
 	}
 }
 

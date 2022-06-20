@@ -30,9 +30,8 @@ if ($err) {
 
 ?>
 
-<?= $content['url'] ?>
+<p style="color: green;font-size: 18px;"><strong><?= $content[0]['question']; ?></strong></p>
 
-<p style="color: green;font-size: 18px;"><strong>Welcome to the backend of your WordPress web site!</strong></p>
 <p>Some helpful advice is located here:</p>
 <h2>
 	<a href="https://www.lukeketchen.com/" target="_blank" style="text-decoration: underline; font-weight:strong;">Link to the help page</a>
