@@ -1,5 +1,29 @@
 [
 	{
-		"question": "helpful widget"
+		"question": "Some helpful advice is located here:"
+	},
+	{
+		"items": [
+			{
+				"link_text" : "Google",
+				"link_address" : "www.google.com",
+				"content" : "Some information that might help can be found here - "
+			},
+			{
+				"link_text" : "Google",
+				"link_address" : "www.google.com",
+				"content" : "For help creating modules, watch this short video - "
+			},
+			{
+				"link_text" : "Google",
+				"link_address" : "www.google.com",
+				"content" : "Creating a post - "
+			},
+			{
+				"link_text" : "Google",
+				"link_address" : "www.google.com",
+				"content" : "If a maps section is not working - "
+			}
+		]
 	}
 ]
