@@ -35,24 +35,42 @@ class FineDashboard{
 
 	public function InitPlugin()
 	{
+		# Set cookie for force show acf option
+		if(isset($_GET['force_show_FDASH'])){
+			setcookie('force_show_FDASH','true',time()+600,'/');
+		}
+
 		add_action('admin_menu', array($this, 'PluginMenu'));
 		add_action('wp_dashboard_setup', array($this, 'load_custom_dashboard_style'), 9999 );
 		add_action('wp_dashboard_setup', array($this, 'fine_dashboard_remove_all_dashboard_meta_boxes'), 9999 );
 		add_action( 'admin_enqueue_scripts', array($this, 'load_custom_wp_admin_style') );
 	}
 
+
+
+
+
+
+
 	public function PluginMenu()
 	{
-	$this->fine_dashboard_screen_name =
-		add_submenu_page(
-			'tools.php',
-			PLUGIN_NAME,
-			PLUGIN_NAME,
-			'manage_options',
-			FD_FILE,
-			array($this, 'RenderPage'),
+		$whitelist = array(
+			'127.0.0.1',
+			'::1',
 		);
 
+		# if ip, cookie or get var show acf menu
+		if ( in_array( $_SERVER['REMOTE_ADDR'], $whitelist ) || isset($_COOKIE['force_show_FDASH']) || isset($_GET['force_show_FDASH']) ) {
+			$this->fine_dashboard_screen_name =
+				add_submenu_page(
+					'tools.php',
+					PLUGIN_NAME,
+					PLUGIN_NAME,
+					'manage_options',
+					FD_FILE,
+					array($this, 'RenderPage'),
+			);
+		}
 	}
 
 	/*
