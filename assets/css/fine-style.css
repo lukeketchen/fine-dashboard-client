@@ -17,9 +17,10 @@
 }
 
 #normal-sortables .postbox{
-	width: 24%;
+	width: 30%;
 }
 
 #normal-sortables #alert_widget{
 	width: 100%;
+	background-color: #ff00005c;
 }

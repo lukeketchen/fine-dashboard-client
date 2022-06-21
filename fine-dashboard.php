@@ -143,6 +143,7 @@ class Widget {
 	function custom_dashboard_widget()
 	{
 		$content = $this->content;
+		extract($content);
 		include("modules/widgets/".$this->file.".php");
 	}
 
