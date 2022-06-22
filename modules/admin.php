@@ -101,6 +101,21 @@
 
 									<tr>
 										<th>
+											<label>Custom Meta Box Settigns:</label>
+										</th>
+										<td class="fdash-custom-widget-settings">
+											<p>This will be the content for an extra meta widget on the dashboard.</p>
+											<label>Show this custom metabox on dashboard:</label>
+											<input type="checkbox" name="show_fdcustom_metabox_widget" id="show_fdcustom_metabox_widget">
+											<ul>
+												<li>Step-1. .</li>
+												<li>Step-2. </li>
+											</ul>
+										</td>
+									</tr>
+
+									<tr>
+										<th>
 											<label>Content:</label>
 										</th>
 										<td>
