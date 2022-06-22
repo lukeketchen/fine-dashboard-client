@@ -194,4 +194,23 @@ function fd_get_data() {
 	$bytes = file_put_contents($upload_dir_path.'/getTaxonomy.json', $json);
 
 }
+
+function callAPI2($method, $url, $data){
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_USERAGENT, 'PHP-MCAPI/2.0');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+$result = curl_exec($ch);
+$response =$result;
+$response_info = curl_getinfo($ch);
+     if(!$result){die("Connection Failure");}
+curl_close($ch);
+return $result;
+}
+
 */
