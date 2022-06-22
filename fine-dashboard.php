@@ -166,3 +166,32 @@ class Widget {
 	}
 
 }
+
+
+
+
+
+
+
+/*
+	get data
+*/
+/*
+function fd_get_data() {
+	$URL = STORE_URL;
+	$token = STORE_API;
+    $file_content = array();
+
+
+ 	$get_data = callAPI2('GET', ''.$URL.'/api/taxonomies/8/taxons/54?token='.$token.'', false);
+  	$data = json_decode($get_data, true);
+	$file_content['cpd_practice_area'] = $data['taxons'];
+
+
+    $upload_dir = wp_get_upload_dir();
+    $upload_dir_path = $upload_dir['basedir'];
+    $json = json_encode($file_content);
+	$bytes = file_put_contents($upload_dir_path.'/getTaxonomy.json', $json);
+
+}
+*/
