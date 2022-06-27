@@ -46,12 +46,6 @@ class FineDashboard{
 		add_action( 'admin_enqueue_scripts', array($this, 'load_custom_wp_admin_style') );
 	}
 
-
-
-
-
-
-
 	public function PluginMenu()
 	{
 		$whitelist = array(
@@ -59,7 +53,7 @@ class FineDashboard{
 			'::1',
 		);
 
-		# if ip, cookie or get var show acf menu
+		# if ip, cookie or get var show menu
 		if ( in_array( $_SERVER['REMOTE_ADDR'], $whitelist ) || isset($_COOKIE['force_show_FDASH']) || isset($_GET['force_show_FDASH']) ) {
 			$this->fine_dashboard_screen_name =
 				add_submenu_page(
@@ -166,51 +160,3 @@ class Widget {
 	}
 
 }
-
-
-
-
-
-
-
-/*
-	get data
-*/
-/*
-function fd_get_data() {
-	$URL = STORE_URL;
-	$token = STORE_API;
-    $file_content = array();
-
-
- 	$get_data = callAPI2('GET', ''.$URL.'/api/taxonomies/8/taxons/54?token='.$token.'', false);
-  	$data = json_decode($get_data, true);
-	$file_content['cpd_practice_area'] = $data['taxons'];
-
-
-    $upload_dir = wp_get_upload_dir();
-    $upload_dir_path = $upload_dir['basedir'];
-    $json = json_encode($file_content);
-	$bytes = file_put_contents($upload_dir_path.'/getTaxonomy.json', $json);
-
-}
-
-function callAPI2($method, $url, $data){
-
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_USERAGENT, 'PHP-MCAPI/2.0');
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-$result = curl_exec($ch);
-$response =$result;
-$response_info = curl_getinfo($ch);
-     if(!$result){die("Connection Failure");}
-curl_close($ch);
-return $result;
-}
-
-*/
