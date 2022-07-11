@@ -2,7 +2,7 @@
 
 <?php
 /**
- * Plugin Name: Fine Dashboard
+ * Plugin Name: Fine Dashboard - Client
  * Description: Edit the Dashboard to show custom data.
  * Author: Luke Ketchen
  * Version: 0.1
