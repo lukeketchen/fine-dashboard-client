@@ -13,10 +13,10 @@ if ( ! defined( 'WPINC' ) ) {
      die;
 }
 
-define( 'PLUGIN_NAME',               'Fine Dashboard');
-define( 'FD_FILE',                  __FILE__ );
-define( 'PLUGIN_FOLDER',             plugin_dir_path( __FILE__ ));
-define( 'PATH_TO_JSON_FILE' , PLUGIN_FOLDER.'/data');
+define( 'FINE_DASH_PLUGIN_NAME',               'Fine Dashboard');
+define( 'FINE_DASH_FD_FILE',                  __FILE__ );
+define( 'FINE_DASH_PLUGIN_FOLDER',             plugin_dir_path( __FILE__ ));
+define( 'FINE_DASH_PATH_TO_JSON_FILE' , FINE_DASH_PLUGIN_FOLDER.'/data');
 
 class FineDashboard{
 
@@ -46,12 +46,6 @@ class FineDashboard{
 		add_action( 'admin_enqueue_scripts', array($this, 'load_custom_wp_admin_style') );
 	}
 
-
-
-
-
-
-
 	public function PluginMenu()
 	{
 		$whitelist = array(
@@ -59,15 +53,15 @@ class FineDashboard{
 			'::1',
 		);
 
-		# if ip, cookie or get var show acf menu
+		# if ip, cookie or get var show menu
 		if ( in_array( $_SERVER['REMOTE_ADDR'], $whitelist ) || isset($_COOKIE['force_show_FDASH']) || isset($_GET['force_show_FDASH']) ) {
 			$this->fine_dashboard_screen_name =
 				add_submenu_page(
 					'tools.php',
-					PLUGIN_NAME,
-					PLUGIN_NAME,
+					FINE_DASH_PLUGIN_NAME,
+					FINE_DASH_PLUGIN_NAME,
 					'manage_options',
-					FD_FILE,
+					FINE_DASH_FD_FILE,
 					array($this, 'RenderPage'),
 			);
 		}
@@ -86,8 +80,8 @@ class FineDashboard{
 	*/
 	public function load_custom_dashboard_style( )
 	{
-    	wp_enqueue_style( 'fine_dashboard_css' , plugin_dir_url( FD_FILE ).'assets/css/fine-style.css', array(), null);
-		wp_enqueue_script ( 'fine_dashboard_js', plugin_dir_url( FD_FILE ).'assets/js/main.js', 'fine-main', true  );
+    	wp_enqueue_style( 'fine_dashboard_css' , plugin_dir_url( FINE_DASH_FD_FILE ).'assets/css/fine-style.css', array(), null);
+		wp_enqueue_script ( 'fine_dashboard_js', plugin_dir_url( FINE_DASH_FD_FILE ).'assets/js/main.js', 'fine-main', true  );
 	}
 
 	/*
@@ -99,8 +93,8 @@ class FineDashboard{
 		if( $hook != 'tools_page_fine-dashboard/fine-dashboard' ) {
 			return;
 		}
-		wp_enqueue_style( 'fine_admin_css', plugin_dir_url( FD_FILE ).'assets/css/admin-style.css', array(), null );
-		wp_enqueue_script( 'fine_admin_js', plugin_dir_url( FD_FILE ).'assets/js/admin.js', 'fine_admin_js', true  );
+		wp_enqueue_style( 'fine_admin_css', plugin_dir_url( FINE_DASH_FD_FILE ).'assets/css/admin-style.css', array(), null );
+		wp_enqueue_script( 'fine_admin_js', plugin_dir_url( FINE_DASH_FD_FILE ).'assets/js/admin.js', 'fine_admin_js', true  );
 	}
 
 	/*
@@ -121,10 +115,10 @@ class FineDashboard{
 	*/
 	private function add_new_widgets()
 	{
-		$alert_data = json_decode(file_get_contents(PATH_TO_JSON_FILE."/alert.json"), true);
-		$general_data = json_decode(file_get_contents(PATH_TO_JSON_FILE."/general_help_widget.json"), true);
-		$office_data = json_decode(file_get_contents(PATH_TO_JSON_FILE."/office_details_widget.json"), true);
-		$helpful_data = json_decode(file_get_contents(PATH_TO_JSON_FILE."/helpful_links_widget.json"), true);
+		$alert_data = json_decode(file_get_contents(FINE_DASH_PATH_TO_JSON_FILE."/alert.json"), true);
+		$general_data = json_decode(file_get_contents(FINE_DASH_PATH_TO_JSON_FILE."/general_help_widget.json"), true);
+		$office_data = json_decode(file_get_contents(FINE_DASH_PATH_TO_JSON_FILE."/office_details_widget.json"), true);
+		$helpful_data = json_decode(file_get_contents(FINE_DASH_PATH_TO_JSON_FILE."/helpful_links_widget.json"), true);
 
 		$alert_help_widget = new Widget('Alert', 'alert_widget', $alert_data );
 		$custom_help_widget = new Widget('Get help to manage your web site', 'general_help_widget', $general_data);
