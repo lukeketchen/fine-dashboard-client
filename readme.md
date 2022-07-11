@@ -6,7 +6,7 @@
 <br />
 <div align="center">
 	<img src="assets/img/icon.png" alt="Logo" width="80" height="80">
-  	<h3 align="center">Fine Dashboard</h3>
+  	<h3 align="center">Fine Dashboard Client</h3>
  	 <p align="center">
     	A template to jumpstart your custom dashboard!
    		<br />
