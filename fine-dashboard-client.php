@@ -131,6 +131,15 @@ $FineDashboard = FineDashboard::GetInstance();
 $FineDashboard->InitPlugin();
 
 
+/*
+	use this to get the posts
+
+	will need a host url to connect to
+
+	/wp-json/wp/v2/posts
+*/
+
+
 
 class Widget {
 
