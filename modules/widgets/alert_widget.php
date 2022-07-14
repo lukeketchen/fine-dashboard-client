@@ -8,10 +8,12 @@
 
 
 
-$options = get_option( 'fdb_api_settings' )['fdb_alert_widget_api'];
-if(!empty($options)):
+$options = get_option( 'fdb_api_settings' );
+$widget_id = $options[$widget_id_key];
+$source_address = $options['fdb_source_widget'];
+if(!empty($widget_id) && !empty($source_address)):
 	//print_r($options);
-	$connected_url = $options;
+	$connected_url = $source_address.'/wp-json/wp/v2/fdcpt_widget/'.$widget_id;
 endif;
 
 

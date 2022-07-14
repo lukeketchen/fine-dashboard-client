@@ -103,21 +103,51 @@ class FineDashboard{
 		);
 
 		add_settings_field(
-			'fdb_alert_widget_api',
-			__( 'Alert Widget api', 'wordpress' ),
-			array($this, 'fdb_alert_widget_api_render'),
+			'fdb_source_widget',
+			__( 'Source address', 'wordpress' ),
+			array($this, 'fdb_source_widget_render'),
 			'fdbPlugin',
 			'fdb_api_fdbPlugin_section'
 		);
+
+		add_settings_field(
+			'fdb_alert_widget_id',
+			__( 'Alert Widget id', 'wordpress' ),
+			array($this, 'fdb_alert_widget_id_render'),
+			'fdbPlugin',
+			'fdb_api_fdbPlugin_section'
+		);
+
+		add_settings_field(
+			'fdb_general_widget_id',
+			__( 'General Widget id', 'wordpress' ),
+			array($this, 'fdb_general_widget_id_render'),
+			'fdbPlugin',
+			'fdb_api_fdbPlugin_section'
+		);
+
 	}
 
-	function fdb_alert_widget_api_render(  ) {
+	function fdb_source_widget_render(  ) {
 		$options = get_option( 'fdb_api_settings' );
 		?>
-		<input type='text' name='fdb_api_settings[fdb_alert_widget_api]' value='<?= !empty($options['fdb_alert_widget_api']) ? $options['fdb_alert_widget_api'] : ''; ?>'>
+		<input type='text' name='fdb_api_settings[fdb_source_widget]' value='<?= !empty($options['fdb_source_widget']) ? $options['fdb_source_widget'] : ''; ?>'>
 		<?php
 	}
 
+	function fdb_alert_widget_id_render(  ) {
+		$options = get_option( 'fdb_api_settings' );
+		?>
+		<input type='number' name='fdb_api_settings[fdb_alert_widget_id]' value='<?= !empty($options['fdb_alert_widget_id']) ? $options['fdb_alert_widget_id'] : ''; ?>'>
+		<?php
+	}
+
+	function fdb_general_widget_id_render(  ) {
+		$options = get_option( 'fdb_api_settings' );
+		?>
+		<input type='number' name='fdb_api_settings[fdb_general_widget_id]' value='<?= !empty($options['fdb_general_widget_id']) ? $options['fdb_general_widget_id'] : ''; ?>'>
+		<?php
+	}
 
 	function fdb_api_settings_section_callback(  ) {
 
@@ -177,10 +207,10 @@ class FineDashboard{
 		$office_data = json_decode(file_get_contents(FINE_DASH_PATH_TO_JSON_FILE."/office_details_widget.json"), true);
 		$helpful_data = json_decode(file_get_contents(FINE_DASH_PATH_TO_JSON_FILE."/helpful_links_widget.json"), true);
 
-		$alert_help_widget = new Widget('Alert', 'alert_widget', $alert_data );
-		$custom_help_widget = new Widget('Get help to manage your web site', 'general_help_widget', $general_data);
-		$office_details_widget = new Widget('Office Details', 'office_details_widget', $office_data);
-		$helpful_links_widget = new Widget('Helpful Links', 'helpful_links_widget', $helpful_data);
+		$alert_help_widget = new Widget('Alert', 'alert_widget', 'fdb_alert_widget_id', $alert_data );
+		$custom_help_widget = new Widget('Get help to manage your web site', 'general_help_widget', '', $general_data);
+		$office_details_widget = new Widget('Office Details', 'office_details_widget', '', $office_data);
+		$helpful_links_widget = new Widget('Helpful Links', 'helpful_links_widget', '', $helpful_data);
 	}
 }
 
@@ -200,28 +230,31 @@ $FineDashboard->InitPlugin();
 
 class Widget {
 
-	public $title;
-	public $file;
-	public $content;
+	private $title;
+	private $file;
+	private $content;
+	private $widget_id_key;
 
 	/*
 	 	contructor for widget
 	*/
-	public function __construct($title, $file, $content = [] )
+	public function __construct($title, $file, $widget_id_key, $content = [] )
 	{
 		$this->title = $title;
 		$this->file = $file;
+		$this->widget_id_key = $widget_id_key;
 		$this->content = $content;
-		wp_add_dashboard_widget($file, $title, array($this, 'custom_dashboard_widget') );
+		wp_add_dashboard_widget($file, $title, array($this, 'fdb_custom_dashboard_widget') );
 	}
 
 	/*
 		get and include widget file
 	*/
-	function custom_dashboard_widget()
+	function fdb_custom_dashboard_widget()
 	{
 		$content = $this->content;
 		extract($content);
+		$widget_id_key = $this->widget_id_key;
 		include("modules/widgets/".$this->file.".php");
 	}
 
