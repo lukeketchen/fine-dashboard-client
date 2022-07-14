@@ -41,6 +41,7 @@ class FineDashboard{
 		}
 
 		add_action('admin_menu', array($this, 'PluginMenu'));
+		add_action( 'admin_init', array($this, 'fdb_api_settings_init'));
 		add_action('wp_dashboard_setup', array($this, 'load_custom_dashboard_style'), 9999 );
 		add_action('wp_dashboard_setup', array($this, 'fine_dashboard_remove_all_dashboard_meta_boxes'), 9999 );
 		add_action( 'admin_enqueue_scripts', array($this, 'load_custom_wp_admin_style') );
@@ -55,24 +56,80 @@ class FineDashboard{
 
 		# if ip, cookie or get var show menu
 		if ( in_array( $_SERVER['REMOTE_ADDR'], $whitelist ) || isset($_COOKIE['force_show_FDASH']) || isset($_GET['force_show_FDASH']) ) {
-			$this->fine_dashboard_screen_name =
-				add_submenu_page(
-					'tools.php',
-					FINE_DASH_PLUGIN_NAME,
-					FINE_DASH_PLUGIN_NAME,
-					'manage_options',
-					FINE_DASH_FD_FILE,
-					array($this, 'RenderPage'),
+			// $this->fine_dashboard_screen_name =
+			// 	add_submenu_page(
+			// 		'tools.php',
+			// 		FINE_DASH_PLUGIN_NAME,
+			// 		FINE_DASH_PLUGIN_NAME,
+			// 		'manage_options',
+			// 		'fine-dashboard-client',
+			// 		array($this, 'RenderPage'),
+			// );
+			add_options_page(
+				FINE_DASH_PLUGIN_NAME,
+				FINE_DASH_PLUGIN_NAME,
+				'manage_options',
+				'fine-dashboard-client-page',
+				array($this, 'fdb_options_page'),
 			);
 		}
 	}
+
+	function fdb_options_page(  ) {
+    ?>
+		<form action='options.php' method='post'>
+
+			<h2>Fine Dashboard - Client</h2>
+			<p>Set the api endpoint to get the data for the widgets. </p>
+
+			<?php
+			settings_fields( 'fdbPlugin' );
+			do_settings_sections( 'fdbPlugin' );
+			submit_button();
+			?>
+
+		</form>
+		<?php
+	}
+
+
+	function fdb_api_settings_init(  ) {
+		register_setting( 'fdbPlugin', 'fdb_api_settings' );
+		add_settings_section(
+			'fdb_api_fdbPlugin_section',
+			__( '', 'wordpress' ),
+			array($this, 'fdb_api_settings_section_callback'),
+			'fdbPlugin'
+		);
+
+		add_settings_field(
+			'fdb_alert_widget_api',
+			__( 'Alert Widget api', 'wordpress' ),
+			array($this, 'fdb_alert_widget_api_render'),
+			'fdbPlugin',
+			'fdb_api_fdbPlugin_section'
+		);
+	}
+
+	function fdb_alert_widget_api_render(  ) {
+		$options = get_option( 'fdb_api_settings' );
+		?>
+		<input type='text' name='fdb_api_settings[fdb_alert_widget_api]' value='<?= !empty($options['fdb_alert_widget_api']) ? $options['fdb_alert_widget_api'] : ''; ?>'>
+		<?php
+	}
+
+
+	function fdb_api_settings_section_callback(  ) {
+
+	}
+
 
 	/*
 		fine dashboard admin page
 	*/
 	public function RenderPage()
 	{
-		include("modules/admin.php");
+		//include_once("modules/admin.php");
 	}
 
 	/*
