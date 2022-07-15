@@ -126,6 +126,22 @@ class FineDashboard{
 			'fdb_api_fdbPlugin_section'
 		);
 
+		add_settings_field(
+			'fdb_office_widget_id',
+			__( 'Office Widget id', 'wordpress' ),
+			array($this, 'fdb_office_widget_id_render'),
+			'fdbPlugin',
+			'fdb_api_fdbPlugin_section'
+		);
+
+		add_settings_field(
+			'fdb_helpful_widget_id',
+			__( 'Helpful Widget id', 'wordpress' ),
+			array($this, 'fdb_helpful_widget_id_render'),
+			'fdbPlugin',
+			'fdb_api_fdbPlugin_section'
+		);
+
 	}
 
 	function fdb_source_widget_render(  ) {
@@ -146,6 +162,20 @@ class FineDashboard{
 		$options = get_option( 'fdb_api_settings' );
 		?>
 		<input type='number' name='fdb_api_settings[fdb_general_widget_id]' value='<?= !empty($options['fdb_general_widget_id']) ? $options['fdb_general_widget_id'] : ''; ?>'>
+		<?php
+	}
+
+	function fdb_office_widget_id_render(  ) {
+		$options = get_option( 'fdb_api_settings' );
+		?>
+		<input type='number' name='fdb_api_settings[fdb_office_widget_id]' value='<?= !empty($options['fdb_office_widget_id']) ? $options['fdb_office_widget_id'] : ''; ?>'>
+		<?php
+	}
+
+	function fdb_helpful_widget_id_render(  ) {
+		$options = get_option( 'fdb_api_settings' );
+		?>
+		<input type='number' name='fdb_api_settings[fdb_helpful_widget_id]' value='<?= !empty($options['fdb_helpful_widget_id']) ? $options['fdb_helpful_widget_id'] : ''; ?>'>
 		<?php
 	}
 
