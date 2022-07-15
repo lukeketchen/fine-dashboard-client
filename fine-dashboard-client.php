@@ -238,9 +238,9 @@ class FineDashboard{
 		$helpful_data = json_decode(file_get_contents(FINE_DASH_PATH_TO_JSON_FILE."/helpful_links_widget.json"), true);
 
 		$alert_help_widget = new Widget('Alert', 'alert_widget', 'fdb_alert_widget_id', $alert_data );
-		$custom_help_widget = new Widget('Get help to manage your web site', 'general_help_widget', '', $general_data);
-		$office_details_widget = new Widget('Office Details', 'office_details_widget', '', $office_data);
-		$helpful_links_widget = new Widget('Helpful Links', 'helpful_links_widget', '', $helpful_data);
+		$custom_help_widget = new Widget('Get help to manage your web site', 'general_help_widget', 'fdb_general_widget_id', $general_data);
+		$office_details_widget = new Widget('Office Details', 'office_details_widget', 'fdb_office_widget_id', $office_data);
+		$helpful_links_widget = new Widget('Helpful Links', 'helpful_links_widget', 'fdb_helpful_widget_id', $helpful_data);
 	}
 }
 

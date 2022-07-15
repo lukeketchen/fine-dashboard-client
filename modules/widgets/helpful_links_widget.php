@@ -1,4 +1,6 @@
+<?php
 
+/*
 
 <?= $question; ?>
 
@@ -8,9 +10,11 @@
 	<?php endforeach; ?>
 </ul>
 
+*/
+?>
+
+
 <?php
-
-
 
 if(!empty(get_option('fdb_api_settings')[$widget_id_key])):
 	$options = get_option( 'fdb_api_settings' );

@@ -1,4 +1,6 @@
+<?php
 
+/*
 <p style="color: green;font-size: 18px;"><strong><?= $question; ?></strong></p>
 
 <ul>
@@ -9,7 +11,8 @@
 
 <p>Contact <a href="mailto:<?= $footer_text; ?>"><?= $footer_link_text; ?></a> <?= $footer_text; ?></p>
 
-
+*/
+?>
 
 <?php
 

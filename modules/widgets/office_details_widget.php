@@ -1,4 +1,5 @@
-
+<?php
+/*
 
 <p><strong><?= $question; ?></strong></p>
 
@@ -10,9 +11,11 @@
 
 <p>Contact <a href="mailto:<?= $footer_text; ?>"><?= $footer_link_text; ?></a> <?= $footer_text; ?></p>
 
+*/
+?>
+
+
 <?php
-
-
 
 if(!empty(get_option('fdb_api_settings')[$widget_id_key])):
 	$options = get_option( 'fdb_api_settings' );
