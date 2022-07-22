@@ -23,6 +23,8 @@ if(!empty(get_option('fdb_api_settings')[$widget_id_key])):
 	$api_response = json_decode( wp_remote_retrieve_body( $response ), true );
 
 	//print_r($api_response['content']['rendered']);
+	// print_r($api_response['show_alertbox']);
+	// print_r($api_response['show_widget']);
 
 endif;
 
