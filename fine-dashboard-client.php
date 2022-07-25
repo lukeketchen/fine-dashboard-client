@@ -1,5 +1,3 @@
-
-
 <?php
 /**
  * Plugin Name: Fine Dashboard - Client
