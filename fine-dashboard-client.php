@@ -1,9 +1,13 @@
 <?php
-/**
+/*
  * Plugin Name: Fine Dashboard - Client
  * Description: Edit the Dashboard to show custom data.
- * Author: Luke Ketchen
- * Version: 0.1
+ * Tags: dashboard, notice, admin, logged in, alert
+ * Version: 1.0
+ * Author: Ketchlabs
+ * Author URI: https://lukeketchen.com/
+ * Text Domain: fine-dashboard-client
+ * License GPL2
  */
 
 // If this file is called directly, abort.
