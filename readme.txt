@@ -14,7 +14,7 @@ Use this with Fine Dashboard - Source to populate modules on the dashboard.
 If you want to create a custom Wordpress dashboard this is a good place to start.
 
 = Usage =
-The Fine Dashboard settings will show under "Tools" if on localhost. Otherwise to show the settings page add the variable "?force_show_FDASH" to the end of the url.
+The Fine Dashboard settings will show under "Settings" if on localhost. Otherwise to show the settings page add the variable "?force_show_FDASH" to the end of the url.
 
 = Contact =
 Luke Ketchen - http://lukeketchen.com/
