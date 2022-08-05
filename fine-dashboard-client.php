@@ -15,9 +15,9 @@ if ( ! defined( 'WPINC' ) ) {
      die;
 }
 
-define( 'FINE_DASH_PLUGIN_NAME',               'Fine Dashboard - Client');
-define( 'FINE_DASH_FD_FILE',                  __FILE__ );
-define( 'FINE_DASH_PLUGIN_FOLDER',             plugin_dir_path( __FILE__ ));
+define( 'FINE_DASH_CLIENT_PLUGIN_NAME',               'Fine Dashboard - Client');
+define( 'FINE_DASH_CLIENT_FD_FILE',                  __FILE__ );
+define( 'FINE_DASH_CLIENT_PLUGIN_FOLDER',             plugin_dir_path( __FILE__ ));
 
 class FineDashboard{
 
@@ -58,8 +58,8 @@ class FineDashboard{
 		# if ip, cookie or get var show menu
 		if ( in_array( $_SERVER['REMOTE_ADDR'], $whitelist ) || isset($_COOKIE['force_show_FDASH']) || isset($_GET['force_show_FDASH']) ) {
 			add_options_page(
-				FINE_DASH_PLUGIN_NAME,
-				__(FINE_DASH_PLUGIN_NAME, 'wordpress'),
+				FINE_DASH_CLIENT_PLUGIN_NAME,
+				__(FINE_DASH_CLIENT_PLUGIN_NAME, 'wordpress'),
 				'manage_options',
 				'fine-dashboard-client-page',
 				array($this, 'fdbc_options_page'),
@@ -199,7 +199,7 @@ class FineDashboard{
 	*/
 	public function fdbc_load_custom_dashboard_style( )
 	{
-    	wp_enqueue_style( 'fine_dashboard_css' , plugin_dir_url( FINE_DASH_FD_FILE ).'assets/css/fine-style.css', array(), null);
+    	wp_enqueue_style( 'fine_dashboard_css' , plugin_dir_url( FINE_DASH_CLIENT_FD_FILE ).'assets/css/fine-style.css', array(), null);
 	}
 
 	/*
@@ -211,7 +211,7 @@ class FineDashboard{
 		if( $hook != 'settings_page_fine-dashboard-client-page' ) {
 			return;
 		}
-		wp_enqueue_style( 'fine_admin_css', plugin_dir_url( FINE_DASH_FD_FILE ).'assets/css/admin-style.css', array(), null );
+		wp_enqueue_style( 'fine_admin_css', plugin_dir_url( FINE_DASH_CLIENT_FD_FILE ).'assets/css/admin-style.css', array(), null );
 	}
 
 	/*
@@ -273,7 +273,7 @@ class fdbc_Widget {
 			$widget_id = $options[$widget_id_key];
 			$source_address = $options['fdbc_source_widget'];
 			if(!empty($widget_id) && !empty($source_address)):
-				$connected_url = $source_address.'/wp-json/wp/v2/fdcpt_widget/'.$widget_id;
+				$connected_url = $source_address.'/wp-json/wp/v2/fdbscpt_widget/'.$widget_id;
 			endif;
 			$response = wp_remote_get($connected_url);
 			$api_response = json_decode( wp_remote_retrieve_body( $response ), true );
@@ -282,7 +282,7 @@ class fdbc_Widget {
 		/*
 			hide if not set to show
 		*/
-		if(empty($api_response['show_widget'])):
+		if(empty($api_response['show_widget'][0])):
 			echo
 			'
 				<style>
