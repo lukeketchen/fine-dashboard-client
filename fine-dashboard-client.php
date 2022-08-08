@@ -148,21 +148,21 @@ class FineDashboard{
 	function fdbc_source_widget_render(  ) {
 		$options = get_option( 'fdbc_api_settings' );
 		?>
-		<input type='text' name='fdbc_api_settings[fdbc_source_widget]' value='<?php echo !empty($options['fdbc_source_widget']) ? __($options['fdbc_source_widget'], 'wordpress') : ''; ?>'>
+		<input type='text' name='fdbc_api_settings[fdbc_source_widget]' value='<?php echo !empty($options['fdbc_source_widget']) ? esc_attr($options['fdbc_source_widget']) : ''; ?>'>
 		<?php
 	}
 
 	function fdbc_alert_widget_id_render(  ) {
 		$options = get_option( 'fdbc_api_settings' );
 		?>
-		<input type='number' name='fdbc_api_settings[fdbc_alert_widget_id]' value='<?php echo !empty($options['fdbc_alert_widget_id']) ? __($options['fdbc_alert_widget_id'], 'wordpress') : ''; ?>'>
+		<input type='number' name='fdbc_api_settings[fdbc_alert_widget_id]' value='<?php echo !empty($options['fdbc_alert_widget_id']) ? esc_attr($options['fdbc_alert_widget_id']) : ''; ?>'>
 		<?php
 	}
 
 	function fdbc_general_widget_id_render(  ) {
 		$options = get_option( 'fdbc_api_settings' );
 		?>
-		<input type='number' name='fdbc_api_settings[fdbc_general_widget_id]' value='<?php echo !empty($options['fdbc_general_widget_id']) ? __($options['fdbc_general_widget_id'], 'wordpress') : ''; ?>'>
+		<input type='number' name='fdbc_api_settings[fdbc_general_widget_id]' value='<?php echo !empty($options['fdbc_general_widget_id']) ? esc_attr($options['fdbc_general_widget_id']) : ''; ?>'>
 		<!-- to delete the widget -->
 		<!-- <input type="checkbox" name="delete_fdbc_general_widget_id" id="delete_fdbc_general_widget_id">
 		<label for="delete_fdbc_general_widget_id">Delete Widget</label> -->
@@ -172,21 +172,21 @@ class FineDashboard{
 	function fdbc_office_widget_id_render(  ) {
 		$options = get_option( 'fdbc_api_settings' );
 		?>
-		<input type='number' name='fdbc_api_settings[fdbc_office_widget_id]' value='<?php echo !empty($options['fdbc_office_widget_id']) ? __($options['fdbc_office_widget_id'], 'wordpress') : ''; ?>'>
+		<input type='number' name='fdbc_api_settings[fdbc_office_widget_id]' value='<?php echo !empty($options['fdbc_office_widget_id']) ? esc_attr($options['fdbc_office_widget_id']) : ''; ?>'>
 		<?php
 	}
 
 	function fdbc_helpful_widget_id_render(  ) {
 		$options = get_option( 'fdbc_api_settings' );
 		?>
-		<input type='number' name='fdbc_api_settings[fdbc_helpful_widget_id]' value='<?php echo !empty($options['fdbc_helpful_widget_id']) ? __($options['fdbc_helpful_widget_id'], 'wordpress') : ''; ?>'>
+		<input type='number' name='fdbc_api_settings[fdbc_helpful_widget_id]' value='<?php echo !empty($options['fdbc_helpful_widget_id']) ? esc_attr($options['fdbc_helpful_widget_id']) : ''; ?>'>
 		<?php
 	}
 
 	function fdbc_add_widget_id_render(  ) {
 		$options = get_option( 'fdbc_api_settings' );
 		?>
-		<input type='text' name='fdbc_api_settings[fdbc_add_widget_id]' value='<?php echo !empty($options['fdbc_add_widget_id']) ? __($options['fdbc_add_widget_id'], 'wordpress') : ''; ?>'>
+		<input type='text' name='fdbc_api_settings[fdbc_add_widget_id]' value='<?php echo !empty($options['fdbc_add_widget_id']) ? esc_attr($options['fdbc_add_widget_id']) : ''; ?>'>
 		<?php
 	}
 
