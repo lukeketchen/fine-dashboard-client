@@ -267,6 +267,7 @@ class fdbc_Widget {
 	function fdbc_custom_dashboard_widget()
 	{
 		$widget_id_key = $this->widget_id_key;
+		$arr = wp_kses_allowed_html( 'post' );
 
 		if(!empty(get_option('fdbc_api_settings')[$widget_id_key])):
 			$options = get_option( 'fdbc_api_settings' );
@@ -294,7 +295,7 @@ class fdbc_Widget {
 		endif;
 
 		if(!empty($api_response)) :
-			echo $api_response['content']['rendered'];
+			echo wp_kses($api_response['content']['rendered'], $arr);
 		endif;
 	}
 }
